@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		34AB444C1F0318E700AA2FE1 /* appCatalogTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 34AB444B1F0318E700AA2FE1 /* appCatalogTemplate.png */; };
 		650B29A419B69FC800A5E946 /* MSCToolbar.py in Resources */ = {isa = PBXBuildFile; fileRef = 650B29A319B69FC800A5E946 /* MSCToolbar.py */; };
 		C00A4C57185FCEC9004EB3B7 /* FoundationPlist.py in Resources */ = {isa = PBXBuildFile; fileRef = C00A4C56185FCEC9004EB3B7 /* FoundationPlist.py */; };
 		C01B396D1EEA6A9000DFBA3B /* libpython2.7.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C01B396C1EEA6A9000DFBA3B /* libpython2.7.dylib */; };
@@ -67,6 +68,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		34AB444B1F0318E700AA2FE1 /* appCatalogTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = appCatalogTemplate.png; path = ../../../../../../Desktop/appCatalogTemplate.png; sourceTree = "<group>"; };
 		650B29A319B69FC800A5E946 /* MSCToolbar.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = MSCToolbar.py; sourceTree = "<group>"; };
 		C00A4C56185FCEC9004EB3B7 /* FoundationPlist.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = FoundationPlist.py; sourceTree = "<group>"; };
 		C01B396C1EEA6A9000DFBA3B /* libpython2.7.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpython2.7.dylib; path = ../../../../../../../../../System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/config/libpython2.7.dylib; sourceTree = SDKROOT; };
@@ -271,6 +273,7 @@
 		C0B37439187089B900B6204E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				34AB444B1F0318E700AA2FE1 /* appCatalogTemplate.png */,
 				C049C9941AEC77DD00251D45 /* updatesTemplate.png */,
 				C0F1586D187D256200052F9A /* MyStuffTemplate.png */,
 				C0B3744418708A0300B6204E /* templates */,
@@ -437,6 +440,7 @@
 				C079D9C118BD435200BAD62E /* AlertController.py in Resources */,
 				C00A4C57185FCEC9004EB3B7 /* FoundationPlist.py in Resources */,
 				C0D6D0691EA55B470099C126 /* authrestart.py in Resources */,
+				34AB444C1F0318E700AA2FE1 /* appCatalogTemplate.png in Resources */,
 				C0453A211CCEF7B60002D396 /* MSCLogWindowController.py in Resources */,
 				C090050816CDD84E00BE34CE /* MSCAppDelegate.py in Resources */,
 				C0AE865A186D32AF00C87AE7 /* MSCBadgedTemplateImage.py in Resources */,

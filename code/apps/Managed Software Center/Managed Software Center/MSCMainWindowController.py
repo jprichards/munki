@@ -182,7 +182,7 @@ class MSCMainWindowController(NSWindowController):
         self.categoriesToolbarButton.setEnabled_(enabled_state)
         self.myItemsToolbarButton.setEnabled_(enabled_state)
         self.updatesToolbarButton.setEnabled_(updates_button_state)
-        self.appCatalogToolbarButton.setEnabled_(enabled_state)
+        self.appCatalogToolbarButton.setEnabled_(updates_button_state)
 
     def enableOrDisableSoftwareViewControls(self):
         '''Disable or enable the controls that let us view optional items'''
@@ -195,7 +195,7 @@ class MSCMainWindowController(NSWindowController):
         self.softwareMenuItem.setEnabled_(enabled_state)
         self.categoriesMenuItem.setEnabled_(enabled_state)
         self.myItemsMenuItem.setEnabled_(enabled_state)
-        self.appCatalogMenuItem.setEnabled_(enabled_state)
+        # self.appCatalogMenuItem.setEnabled_(enabled_state)
 
     def munkiStatusSessionEnded_(self, sessionResult):
         '''Called by StatusController when a Munki session ends'''
@@ -691,7 +691,9 @@ class MSCMainWindowController(NSWindowController):
         self.progressSpinner.startAnimation_(self)
         main_url = self.webView.mainFrameURL()
         parts = urlparse(main_url)
+        print "PARTS  =  " + str(parts)
         pagename = os.path.basename(parts.path)
+        print "PAGENAME  =  " + str(pagename)
         msclog.debug_log('Requested pagename is %s' % pagename)
         if (pagename == 'category-all.html'
                 or pagename.startswith('detail-')
@@ -704,6 +706,8 @@ class MSCMainWindowController(NSWindowController):
             self.highlightToolbarButtons_("My Items")
         elif pagename == 'updates.html' or pagename.startswith('updatedetail-'):
             self.highlightToolbarButtons_("Updates")
+        elif pagename == 'AppleOsX':
+            self.highlightToolbarButtons_("App Catalog")
         else:
             # no idea what type of item it is
             self.highlightToolbarButtons_(None)
