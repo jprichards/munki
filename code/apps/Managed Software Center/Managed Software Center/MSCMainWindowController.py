@@ -64,6 +64,7 @@ class MSCMainWindowController(NSWindowController):
     categoriesToolbarButton = IBOutlet()
     myItemsToolbarButton = IBOutlet()
     updatesToolbarButton = IBOutlet()
+    appCatalogToolbarButton = IBOutlet()
     webView = IBOutlet()
     navigateBackBtn = IBOutlet()
     navigateForwardBtn = IBOutlet()
@@ -168,6 +169,7 @@ class MSCMainWindowController(NSWindowController):
         self.categoriesToolbarButton.setState_(nameToHighlight == "Categories")
         self.myItemsToolbarButton.setState_(nameToHighlight == "My Items")
         self.updatesToolbarButton.setState_(nameToHighlight == "Updates")
+        self.appCatalogToolbarButton.setState_(nameToHighlight == "App Catalog")
 
     def enableOrDisableToolbarButtons_(self, enabled_state):
         '''Enable or disable buttons in our toolbar'''
@@ -180,6 +182,7 @@ class MSCMainWindowController(NSWindowController):
         self.categoriesToolbarButton.setEnabled_(enabled_state)
         self.myItemsToolbarButton.setEnabled_(enabled_state)
         self.updatesToolbarButton.setEnabled_(updates_button_state)
+        self.appCatalogToolbarButton.setEnabled_(enabled_state)
 
     def enableOrDisableSoftwareViewControls(self):
         '''Disable or enable the controls that let us view optional items'''
@@ -192,6 +195,7 @@ class MSCMainWindowController(NSWindowController):
         self.softwareMenuItem.setEnabled_(enabled_state)
         self.categoriesMenuItem.setEnabled_(enabled_state)
         self.myItemsMenuItem.setEnabled_(enabled_state)
+        self.appCatalogMenuItem.setEnabled_(enabled_state)
 
     def munkiStatusSessionEnded_(self, sessionResult):
         '''Called by StatusController when a Munki session ends'''
@@ -611,6 +615,12 @@ class MSCMainWindowController(NSWindowController):
             # clear all earlier update notifications
             NSUserNotificationCenter.defaultUserNotificationCenter(
                 ).removeAllDeliveredNotifications()
+
+    def load_app_catalog(self, catalog_url):
+        '''Tells the WebView to load the AirWatch App Catalog'''
+        msclog.debug_log('load_page request for %s' % catalog_url)
+        request = NSURLRequest.requestWithURL_(NSURL.URLWithString_(catalog_url))
+        self.webView.mainFrame().loadRequest_(request)
 
     def setNoPageCache(self):
         '''We disable the back/forward page cache because
@@ -1207,6 +1217,12 @@ class MSCMainWindowController(NSWindowController):
         self._alertedUserToOutstandingUpdates = True
 
     @IBAction
+    def loadAppCatalogPage_(self, sender):
+        '''Called by Navigate menu item'''
+        self.load_app_catalog('https://dev82.airwatchdev.com/Catalog/ViewCatalog/OMPKV5kZgGtDNEcqt5NieL-jKMtxNmImlhGOjmQ67H4xlQd277--KWm0AqC1SzGv/AppleOsX')
+
+
+    @IBAction
     def softwareToolbarButtonClicked_(self, sender):
         '''User clicked Software toolbar button'''
         self.loadAllSoftwarePage_(sender)
@@ -1225,6 +1241,11 @@ class MSCMainWindowController(NSWindowController):
     def updatesToolbarButtonClicked_(self, sender):
         '''User clicked Updates toolbar button'''
         self.loadUpdatesPage_(sender)
+
+    @IBAction
+    def appCatalogToolbarButtonClicked_(self, sender):
+        '''User clicked App Catalog toolbar button'''
+        self.loadAppCatalogPage_(sender)
 
     @IBAction
     def searchFilterChanged_(self, sender):
