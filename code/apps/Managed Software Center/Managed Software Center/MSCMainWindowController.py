@@ -39,6 +39,8 @@ from Foundation import *
 from AppKit import *
 from WebKit import *
 
+import FoundationPlist
+
 # Disable PyLint complaining about 'invalid' camelCase names
 # pylint: disable=C0103
 
@@ -616,8 +618,12 @@ class MSCMainWindowController(NSWindowController):
             NSUserNotificationCenter.defaultUserNotificationCenter(
                 ).removeAllDeliveredNotifications()
 
-    def load_app_catalog(self, catalog_url):
+    def load_app_catalog(self):
         '''Tells the WebView to load the AirWatch App Catalog'''
+        # refresh ManagedInstalls.plist and get the App Catalog url
+        CFPreferencesAppSynchronize(u'ManagedInstalls')
+        catalog_url = CFPreferencesCopyAppValue('AppCatalogURL', u'ManagedInstalls')
+
         msclog.debug_log('load_page request for %s' % catalog_url)
         request = NSURLRequest.requestWithURL_(NSURL.URLWithString_(catalog_url))
         self.webView.mainFrame().loadRequest_(request)
@@ -691,9 +697,7 @@ class MSCMainWindowController(NSWindowController):
         self.progressSpinner.startAnimation_(self)
         main_url = self.webView.mainFrameURL()
         parts = urlparse(main_url)
-        print "PARTS  =  " + str(parts)
         pagename = os.path.basename(parts.path)
-        print "PAGENAME  =  " + str(pagename)
         msclog.debug_log('Requested pagename is %s' % pagename)
         if (pagename == 'category-all.html'
                 or pagename.startswith('detail-')
@@ -706,11 +710,10 @@ class MSCMainWindowController(NSWindowController):
             self.highlightToolbarButtons_("My Items")
         elif pagename == 'updates.html' or pagename.startswith('updatedetail-'):
             self.highlightToolbarButtons_("Updates")
-        elif pagename == 'AppleOsX':
-            self.highlightToolbarButtons_("App Catalog")
+#        elif pagename == 'AppleOsX':
+#            self.highlightToolbarButtons_("App Catalog")
         else:
-            # no idea what type of item it is
-            self.highlightToolbarButtons_(None)
+            self.highlightToolbarButtons_("App Catalog")
 
     def webView_didFinishLoadForFrame_(self, view, frame):
         '''Stop progress spinner and update state of back/forward buttons'''
@@ -1223,7 +1226,7 @@ class MSCMainWindowController(NSWindowController):
     @IBAction
     def loadAppCatalogPage_(self, sender):
         '''Called by Navigate menu item'''
-        self.load_app_catalog('https://dev82.airwatchdev.com/Catalog/ViewCatalog/OMPKV5kZgGtDNEcqt5NieL-jKMtxNmImlhGOjmQ67H4xlQd277--KWm0AqC1SzGv/AppleOsX')
+        self.load_app_catalog()
 
 
     @IBAction
